@@ -22,4 +22,18 @@ function App() {
   );
 }
 
+useEffect(() => {
+  // Check URL for an "alias" parameter
+  const params = new URLSearchParams(window.location.search);
+  const aliasFromUrl = params.get("alias");
+  if (aliasFromUrl) {
+    Cookies.set("userAlias", aliasFromUrl, { expires: 7 });
+  }
+
+  // Existing cookie setup for userId
+  if (!Cookies.get('userId')) {
+    Cookies.set('userId', Math.random().toString(36).substring(7), { expires: 7 });
+  }
+}, []);
+
 export default App;
